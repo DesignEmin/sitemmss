@@ -42,23 +42,30 @@ Hiçbir sunucu, hesap ya da kurulum gerekmez. Tamamen tarayıcıda çalışır v
 | `M` | Sessiz |
 | `/` | Ara |
 
-## Nasıl açılır?
+## Telefon uygulaması (Google Play / App Store)
 
-### Seçenek 1: GitHub Pages (önerilen, telefondan da açılır)
-1. GitHub’da bu deponun **Settings → Pages** bölümüne gir.
-2. “Branch” olarak bu dalı ve `/ (root)` klasörünü seç, kaydet.
-3. Birkaç dakika sonra verilen adresi aç (ör. `https://<kullanıcı-adın>.github.io/sitemmss/`).
-4. Telefonda tarayıcı menüsünden **“Ana ekrana ekle”** diyerek uygulama gibi kullanabilirsin.
+Proje [Capacitor](https://capacitorjs.com) ile Android ve iOS uygulaması olarak paketlenmeye hazırdır.
+Adım adım yükleme talimatları için **[MAGAZA-REHBERI.md](MAGAZA-REHBERI.md)** dosyasına bak.
+Gizlilik politikası: [GIZLILIK-POLITIKASI.md](GIZLILIK-POLITIKASI.md).
 
-### Seçenek 2: Bilgisayarında
-Klasörde bir yerel sunucu başlat ve tarayıcıda aç:
+Telefonda ekstra olarak:
+- Ekran kapalıyken / başka uygulamadayken müzik çalmaya devam eder.
+- Kilit ekranı ve bildirimden çal/duraklat/ileri/geri kontrolü.
+- Android geri tuşu desteği.
+
+## Geliştirme
 
 ```bash
-python3 -m http.server 8000
-# sonra http://localhost:8000 adresine git
+npm install
+npm run dev        # http://localhost:8000 (değişiklikleri otomatik derler)
+npm run build      # src/ -> www/
+npm test           # uçtan uca testler (önce npm run build)
+npm run android    # Android Studio ile aç
+npm run ios        # Xcode ile aç
 ```
 
-> Not: `index.html` dosyasına çift tıklayarak (`file://`) açmak bazı tarayıcılarda çalışmaz; yerel sunucu kullan.
+Her gönderimde GitHub Actions testleri çalıştırır, Android APK/AAB ve iOS derlemesini yapar
+(**Actions** sekmesi → *Test ve Derleme*). Android deneme APK’sı oradan indirilebilir.
 
 ## Önemli notlar
 
@@ -70,12 +77,18 @@ python3 -m http.server 8000
 ## Dosya yapısı
 
 ```
-index.html            Sayfa iskeleti
-css/style.css         Tasarım (koyu tema, mobil uyumlu)
-js/app.js             Uygulama: sayfalar, çalar, çalma listeleri, sıra
-js/db.js              IndexedDB depolama katmanı
-js/metadata.js        ID3 etiketi / kapak / süre okuma
-js/icons.js           SVG ikonlar
-sw.js                 Çevrimdışı çalışma için service worker
-manifest.webmanifest  “Ana ekrana ekle” (PWA) ayarları
+src/                  Uygulama kaynak kodu (web)
+  index.html          Sayfa iskeleti
+  css/style.css       Tasarım (koyu tema, mobil uyumlu)
+  js/app.js           Sayfalar, çalar, çalma listeleri, sıra
+  js/native.js        Telefon entegrasyonu (arka planda çalma, kilit ekranı, geri tuşu)
+  js/db.js            IndexedDB depolama katmanı
+  js/metadata.js      ID3 etiketi / kapak / süre okuma
+  js/icons.js         SVG ikonlar
+android/              Android Studio projesi
+ios/                  Xcode projesi
+assets/               Simge ve açılış ekranı kaynakları
+scripts/              Derleme ve görsel üretme betikleri
+tests/e2e.mjs         Uçtan uca testler
+capacitor.config.json Uygulama kimliği ve telefon ayarları
 ```
