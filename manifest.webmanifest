@@ -1,0 +1,14 @@
+{
+  "name": "Müziğim",
+  "short_name": "Müziğim",
+  "description": "Sadece bana ait kişisel müzik platformu",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#121212",
+  "lang": "tr",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

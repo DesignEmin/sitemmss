@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#121212">
+  <meta name="description" content="Sadece bana ait kişisel müzik platformu">
+  <title>Müziğim</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-logo" data-icon="logo"></span>
+        <span>Müziğim</span>
+      </div>
+      <nav class="nav">
+        <a href="#/" data-nav="home"><span data-icon="home"></span>Ana Sayfa</a>
+        <a href="#/search" data-nav="search"><span data-icon="search"></span>Ara</a>
+        <a href="#/library" data-nav="library"><span data-icon="library"></span>Kitaplığım</a>
+      </nav>
+      <div class="side-section">
+        <div class="side-actions">
+          <button class="side-btn" data-action="new-playlist"><span data-icon="plus"></span>Çalma listesi oluştur</button>
+          <a class="side-btn" href="#/liked" data-nav="liked"><span class="liked-mini" data-icon="heart-fill"></span>Beğenilen Şarkılar</a>
+          <button class="side-btn" data-action="upload"><span data-icon="upload"></span>Şarkı yükle</button>
+        </div>
+        <div class="side-divider"></div>
+        <ul class="side-playlists" id="sidePlaylists"></ul>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <header class="topbar">
+        <div class="topbar-nav">
+          <button class="round-btn" data-action="back" title="Geri"><span data-icon="chevron-left"></span></button>
+          <button class="round-btn" data-action="forward" title="İleri"><span data-icon="chevron-right"></span></button>
+        </div>
+        <div class="topbar-search" id="topSearch" hidden>
+          <span data-icon="search"></span>
+          <input type="search" id="searchInput" placeholder="Ne dinlemek istiyorsun?" autocomplete="off">
+        </div>
+        <div class="topbar-right">
+          <button class="pill-btn" data-action="upload"><span data-icon="upload"></span><span class="hide-sm">Yükle</span></button>
+        </div>
+      </header>
+      <div class="view" id="view"></div>
+    </main>
+
+    <footer class="player" id="player">
+      <div class="player-left" data-action="open-now-playing">
+        <div class="player-cover" id="pCover"></div>
+        <div class="player-meta">
+          <div class="player-title" id="pTitle">Bir şarkı seç</div>
+          <div class="player-artist" id="pArtist"></div>
+        </div>
+        <button class="icon-btn like-btn" id="pLike" data-action="like-current" title="Beğen"><span data-icon="heart"></span></button>
+      </div>
+      <div class="player-center">
+        <div class="controls">
+          <button class="icon-btn" id="btnShuffle" data-action="shuffle" title="Karıştır"><span data-icon="shuffle"></span></button>
+          <button class="icon-btn" data-action="prev" title="Önceki"><span data-icon="prev"></span></button>
+          <button class="play-btn" id="btnPlay" data-action="toggle" title="Çal / Duraklat"><span data-icon="play"></span></button>
+          <button class="icon-btn" data-action="next" title="Sonraki"><span data-icon="next"></span></button>
+          <button class="icon-btn" id="btnRepeat" data-action="repeat" title="Tekrarla"><span data-icon="repeat"></span></button>
+        </div>
+        <div class="progress-row">
+          <span class="time" id="tCur">0:00</span>
+          <input type="range" class="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="Şarkı konumu">
+          <span class="time" id="tDur">0:00</span>
+        </div>
+      </div>
+      <div class="player-right">
+        <a class="icon-btn" href="#/queue" title="Sıradakiler"><span data-icon="queue"></span></a>
+        <button class="icon-btn" id="btnMute" data-action="mute" title="Sesi kapat"><span data-icon="volume"></span></button>
+        <input type="range" class="range volume" id="volume" min="0" max="100" value="80" aria-label="Ses">
+      </div>
+      <div class="mini-progress"><div id="miniBar"></div></div>
+    </footer>
+
+    <nav class="bottom-nav">
+      <a href="#/" data-nav="home"><span data-icon="home"></span>Ana Sayfa</a>
+      <a href="#/search" data-nav="search"><span data-icon="search"></span>Ara</a>
+      <a href="#/library" data-nav="library"><span data-icon="library"></span>Kitaplık</a>
+    </nav>
+  </div>
+
+  <section class="now-playing" id="nowPlaying" hidden>
+    <div class="np-bg" id="npBg"></div>
+    <header class="np-head">
+      <button class="icon-btn" data-action="close-now-playing" title="Kapat"><span data-icon="chevron-down"></span></button>
+      <div class="np-context" id="npContext">Şimdi çalıyor</div>
+      <a class="icon-btn" href="#/queue" data-action="close-now-playing" title="Sıradakiler"><span data-icon="queue"></span></a>
+    </header>
+    <div class="np-cover" id="npCover"></div>
+    <div class="np-info">
+      <div>
+        <div class="np-title" id="npTitle"></div>
+        <div class="np-artist" id="npArtist"></div>
+      </div>
+      <button class="icon-btn like-btn big" id="npLike" data-action="like-current"><span data-icon="heart"></span></button>
+    </div>
+    <div class="progress-row np-progress">
+      <input type="range" class="range" id="npSeek" min="0" max="1000" value="0" step="1" aria-label="Şarkı konumu">
+      <div class="np-times"><span id="npCur">0:00</span><span id="npDur">0:00</span></div>
+    </div>
+    <div class="controls np-controls">
+      <button class="icon-btn" id="npShuffle" data-action="shuffle"><span data-icon="shuffle"></span></button>
+      <button class="icon-btn big" data-action="prev"><span data-icon="prev"></span></button>
+      <button class="play-btn big" id="npPlay" data-action="toggle"><span data-icon="play"></span></button>
+      <button class="icon-btn big" data-action="next"><span data-icon="next"></span></button>
+      <button class="icon-btn" id="npRepeat" data-action="repeat"><span data-icon="repeat"></span></button>
+    </div>
+  </section>
+
+  <div class="drop-overlay" id="dropOverlay" hidden>
+    <div><span data-icon="upload"></span><p>Şarkıları buraya bırak</p></div>
+  </div>
+  <div class="menu" id="menu" hidden></div>
+  <div class="modal-backdrop" id="modal" hidden></div>
+  <div class="toasts" id="toasts"></div>
+  <input type="file" id="fileInput" accept="audio/*,.mp3,.m4a,.aac,.flac,.ogg,.opus,.wav,.webm" multiple hidden>
+  <audio id="audio" preload="auto"></audio>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
