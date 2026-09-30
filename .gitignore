@@ -1,0 +1,18 @@
+node_modules/
+www/
+.DS_Store
+*.log
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/app/release/
+*.keystore
+*.jks
+keystore.properties
+# iOS
+ios/App/build/
+ios/App/Pods/
+ios/DerivedData/
+xcuserdata/

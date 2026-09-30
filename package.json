@@ -1,0 +1,38 @@
+{
+  "name": "muzigim",
+  "version": "1.0.0",
+  "description": "Kişisel müzik platformu (web, Android, iOS)",
+  "scripts": {
+    "dev": "node scripts/build.mjs --serve",
+    "build": "node scripts/build.mjs",
+    "sync": "npm run build && cap sync",
+    "android": "npm run sync && cap open android",
+    "ios": "npm run sync && cap open ios",
+    "assets": "capacitor-assets generate --android --ios --iconBackgroundColor '#121212' --iconBackgroundColorDark '#121212' --splashBackgroundColor '#000000' --splashBackgroundColorDark '#000000'",
+    "test": "node tests/e2e.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DesignEmin/sitemmss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DesignEmin/sitemmss/issues"
+  },
+  "homepage": "https://github.com/DesignEmin/sitemmss#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/ios": "^8.5.2",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@capgo/capacitor-media-session": "^8.0.32"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.5.2",
+    "esbuild": "^0.28.2",
+    "playwright": "^1.56.1"
+  },
+  "private": true,
+  "type": "module"
+}
